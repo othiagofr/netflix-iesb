@@ -74,6 +74,7 @@ const ChooseIcon = (props) => {
         color="#1a1718"
         title="CAMERA"
         onPress={() => {
+          console.log('ChooseIcon camera', props?.route?.params?.name)
           props.navigation.navigate('Camera', {
             name: props?.route?.params?.name,
           });

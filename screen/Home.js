@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import {StatusBar, Dimensions} from 'react-native';
+import { StatusBar, Dimensions, PermissionsAndroid } from 'react-native';
 
-import {LinearGradient} from 'expo-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import styled from 'styled-components/native';
 
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Movies from '../components/Movies';
+import { getLocation, filterByCountry } from '../services/movieFilter';
 
 const api = [
   require('../assets/movies/movie1.jpg'),
@@ -32,6 +33,32 @@ const Gradient = styled(LinearGradient)`
 `;
 
 const Home = () => {
+
+  const [movies, setMovies] = useState([]);
+  const [nationalMovies, setNationalMovies] = useState([]);
+  useEffect(() => {
+    const loadingMovies = async () => {
+
+      const moviesJson = require('../assets/Movies.json');
+      const position = await getLocation();
+    
+      const nationalCountries = await filterByCountry(moviesJson, position);
+      setNationalMovies(nationalCountries);
+
+      const nationalCountriesTitles = nationalCountries.map(
+        (item) => item.Title
+      );
+
+      moviesWithoutNationals = moviesJson.filter((item) =>
+        !nationalCountriesTitles.includes(item.Title)
+      )
+
+      setMovies(moviesWithoutNationals)
+    };
+    loadingMovies()
+  },
+    [])
+
   return (
     <>
       <StatusBar
@@ -53,8 +80,8 @@ const Home = () => {
             <Hero />
           </Gradient>
         </Poster>
-        <Movies label="Recomendados" item={api} />
-        <Movies label="Top 10" item={api} />
+        <Movies label="Recomendados" data={movies} />
+        <Movies label="National" data={nationalMovies} />
       </Container>
     </>
   );
