@@ -22,10 +22,16 @@ export const filterByCountry = async (movies, geolocation) => {
         lng: geolocation.coords.longitude
     })
 
+
     const national = movies.filter((item) => {
-        return ( isYourCountry = 
-            item.Country.indexOf(location[0].country) !== -1 || 
-            item.Country.indexOf(location[0].countryCode) !== -1);
+
+        console.log("filterByCountry", item.CountryCode)
+        console.log("filterByCountry country current", location[0].countryCode)
+        console.log('filterByCountry if', item.CountryCode.indexOf(location[0].countryCode))
+
+        return ( 
+            item.CountryCode.indexOf(location[0].CountryCode) !== -1 || 
+            item.CountryCode.indexOf(location[0].countryCode) !== -1);
     })
 
     return national
