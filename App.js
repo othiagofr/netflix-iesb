@@ -7,7 +7,7 @@ import Camera from './screen/Camera';
 import ChooseIcon from './screen/ChooseIcon';
 import ProfileToEdit from './screen/ProfileToEdit';
 import AppContext from './AppContext'
-import messaging from '@react-native-firebase/messaging';
+import messaging, { firebase } from '@react-native-firebase/messaging';
 
 const Stack = createStackNavigator();
 
@@ -61,6 +61,11 @@ export default function App() {
     setProfilesAvailables(newProfiles)
 
   }
+
+  messaging().setBackgroundMessageHandler(async remoteMessage => {
+    console.log("Notificação recebida", remoteMessage);
+  });
+  
 
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
