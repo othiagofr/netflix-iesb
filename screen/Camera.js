@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import AppContext from '../AppContext';
+import { translate } from '../languages/utils';
 
 export default class Camera extends PureComponent {
 
@@ -26,15 +27,15 @@ export default class Camera extends PureComponent {
               type={RNCamera.Constants.Type.back}
               flashMode={RNCamera.Constants.FlashMode.on}
               androidCameraPermissionOptions={{
-                title: 'Permissão para camera',
-                message: 'Preciso da permissão da sua camera',
-                buttonPositive: 'Conceder',
-                buttonNegative: 'Negar',
+                title: translate('permissionForCamera'),
+                message: translate('iNeedYourCamerasPermission'),
+                buttonPositive: translate('grant'),
+                buttonNegative: translate('deny'),
               }}
             />
             <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
               <TouchableOpacity onPress={() => this.takePicture(editProfileIcon)} style={styles.capture}>
-                <Text style={{ fontSize: 14 }}> Capturar </Text>
+                <Text style={{ fontSize: 14 }}> {translate('snap')} </Text>
               </TouchableOpacity>
             </View>
 

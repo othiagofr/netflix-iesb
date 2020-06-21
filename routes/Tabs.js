@@ -5,6 +5,7 @@ import MoreRoutes from './MoreRoutes';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Entypo, AntDesign, MaterialIcons, Feather } from '@expo/vector-icons';
 import Home from '../screen/Home';
+import { translate } from '../languages/utils';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,7 +28,7 @@ export default function Tabs() {
                 name='Home'
                 component={HomeRoutes}
                 options={{
-                    tabBarLabel:'Home',
+                    tabBarLabel: translate('home'),
                     tabBarIcon: ({ color, size }) => <Entypo name='home' size={size} color={color} />
                 }}
             />
@@ -36,7 +37,7 @@ export default function Tabs() {
                 name='Busca'
                 component={Home}
                 options={{
-                    tabBarLabel:'Busca',
+                    tabBarLabel: translate('search'),
                     tabBarIcon: ({ color, size }) => <AntDesign name='search1' size={size} color={color} />
                 }}
             />
@@ -45,7 +46,7 @@ export default function Tabs() {
                 name='Em breve'
                 component={Home}
                 options={{
-                    tabBarLabel:'Em Breve',
+                    tabBarLabel:translate('soon'),
                     tabBarIcon: ({ color, size }) => <MaterialIcons name='perm-media' size={size} color={color} />
                 }}
             />
@@ -54,7 +55,7 @@ export default function Tabs() {
                 name='Downloads'
                 component={Home}
                 options={{
-                    tabBarLabel:'Downloads',
+                    tabBarLabel:translate('downloads'),
                     tabBarIcon: ({ color, size }) => <Feather name='download' size={size} color={color} />
                 }}
             />
@@ -63,7 +64,7 @@ export default function Tabs() {
                 name='Mais'
                 component={MoreRoutes}
                 options={{
-                    tabBarLabel:'Mais',
+                    tabBarLabel:translate('more'),
                     tabBarIcon: ({ color, size }) => <Feather name='menu' size={size} color={color} />
                 }}
             />

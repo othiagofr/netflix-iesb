@@ -11,6 +11,7 @@ import Hero from '../components/Hero';
 import Movies from '../components/Movies';
 import { getLocation, filterByCountry } from '../services/movieFilter';
 import AppContext from '../AppContext';
+import { translate } from '../languages/utils';
 
 const api = [
   require('../assets/movies/movie1.jpg'),
@@ -113,11 +114,11 @@ const Home = () => {
                 <Hero />
               </Gradient>
             </Poster>
-            <Movies label="Recomendados" data={movies} />
+            <Movies label={translate('recommended')} data={movies} />
             {
-              nationalMovies && nationalMovies.length > 0 && <Movies label="National" data={nationalMovies} />
+              nationalMovies && nationalMovies.length > 0 && <Movies label={translate('national')} data={nationalMovies} />
             }
-            <Movies label={`Continuar assistindo como ${user}`} data={getResumeMovies(user)} />
+            <Movies label={`${translate('continueWatchingAs')} ${user}`} data={getResumeMovies(user)} />
           </Container>
         </>)
       }

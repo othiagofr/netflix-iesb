@@ -8,10 +8,13 @@ import ChooseIcon from './screen/ChooseIcon';
 import ProfileToEdit from './screen/ProfileToEdit';
 import AppContext from './AppContext'
 import messaging from '@react-native-firebase/messaging';
+import { configureLanguareToi18N } from './languages/utils';
 
 const Stack = createStackNavigator();
 
 export default function App() {
+
+  configureLanguareToi18N()
 
   const PROFILES_AVAILABlES = [
     {
