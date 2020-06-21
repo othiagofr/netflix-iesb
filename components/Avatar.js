@@ -51,7 +51,7 @@ const Editable = (props) => {
 
 const Avatar = (props) => {
   return (
-    <Container style={{alignItems: 'center'}} onPress={props.onPress}>
+    <Container style={{alignItems: 'center', backgroundColor: props.highlight ? '#fff' : "#000"}} onPress={props.onPress}>
       {props.uri ? (
         <View>
           <AvatarIcon
@@ -67,7 +67,7 @@ const Avatar = (props) => {
         </View>
       )}
 
-      <AvatarText>{props.name}</AvatarText>
+      <AvatarText style={{ color: props.highlight ? "#000" : "#fff" }} >{props.name}</AvatarText>
     </Container>
   );
 };

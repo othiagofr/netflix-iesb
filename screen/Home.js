@@ -10,6 +10,7 @@ import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Movies from '../components/Movies';
 import { getLocation, filterByCountry } from '../services/movieFilter';
+import AppContext from '../AppContext';
 
 const api = [
   require('../assets/movies/movie1.jpg'),
@@ -41,7 +42,7 @@ const Home = () => {
 
       const moviesJson = require('../assets/Movies.json');
       const position = await getLocation();
-    
+
       const nationalCountries = await filterByCountry(moviesJson, position);
       setNationalMovies(nationalCountries);
 
@@ -60,30 +61,35 @@ const Home = () => {
     [])
 
   return (
-    <>
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle="light-content"
-      />
-      <Container>
-        <Poster source={require('../assets/poster.jpg')}>
-          <Gradient
-            locations={[0, 0.2, 0.6, 0.93]}
-            colors={[
-              'rgba(0,0,0,0.5)',
-              'rgba(0,0,0,0.0)',
-              'rgba(0,0,0,0.0)',
-              'rgba(0,0,0,1)',
-            ]}>
-            <Header />
-            <Hero />
-          </Gradient>
-        </Poster>
-        <Movies label="Recomendados" data={movies} />
-        <Movies label="National" data={nationalMovies} />
-      </Container>
-    </>
+    <AppContext.Consumer>
+      {({ user }) => (
+        <>
+          <StatusBar
+            translucent
+            backgroundColor="transparent"
+            barStyle="light-content"
+          />
+          <Container>
+            <Poster source={require('../assets/poster.jpg')}>
+              <Gradient
+                locations={[0, 0.2, 0.6, 0.93]}
+                colors={[
+                  'rgba(0,0,0,0.5)',
+                  'rgba(0,0,0,0.0)',
+                  'rgba(0,0,0,0.0)',
+                  'rgba(0,0,0,1)',
+                ]}>
+                <Header />
+                <Hero />
+              </Gradient>
+            </Poster>
+            <Movies label="Recomendados" data={movies} />
+            <Movies label="National" data={nationalMovies} />
+            <Movies label={`Continuar assistindo como ${user}`} data={nationalMovies} />
+          </Container>
+        </>)
+      }
+    </AppContext.Consumer>
   );
 };
 

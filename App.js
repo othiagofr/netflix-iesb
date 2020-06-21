@@ -43,7 +43,7 @@ export default function App() {
 
   const [profilesAvailables, setProfilesAvailables] = useState(PROFILES_AVAILABlES)
 
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState('José')
 
   const editProfileIcon = (nameProfile, uri) => {
 
@@ -58,15 +58,13 @@ export default function App() {
       return p
     })
 
-    console.log("newProfiles", newProfiles)
-
     setProfilesAvailables(newProfiles)
 
   }
   
   const changeProfile = (newProfile) => {
     setUser(newProfile)
-    console.log("changeProfile", newProfile)
+    console.log("changeProfile", user)
   }
 
   messaging().setBackgroundMessageHandler(async remoteMessage => {
@@ -88,7 +86,7 @@ export default function App() {
   return (
     <AppContext.Provider
       value={{
-        user: 'José',
+        user: user,
         changeProfile: changeProfile,
         profilesAvailables,
         editProfileIcon: editProfileIcon

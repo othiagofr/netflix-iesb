@@ -98,7 +98,7 @@ const More = (props) => {
 
   return (
     <AppContext.Consumer>
-      {({ profilesAvailables, changeProfile }) => {
+      {({ user, profilesAvailables, changeProfile }) => {
 
         replaceAvatarsWithImage(props, profilesAvailables);
 
@@ -106,13 +106,9 @@ const More = (props) => {
           <AvantarsContainer>
             <Row horizontal>
               {profilesAvailables.map((item) => {
-
-                if (item.name === 'Maria') {
-                  console.log("Maria", item)
-                }
-
                 return (
                   <Avatar
+                    highlight={user == item.name}
                     key={item.name}
                     image={item.icon}
                     uri={item.uri}
