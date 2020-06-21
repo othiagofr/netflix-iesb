@@ -64,7 +64,6 @@ export default function App() {
   
   const changeProfile = (newProfile) => {
     setUser(newProfile)
-    console.log("changeProfile", user)
   }
 
   messaging().setBackgroundMessageHandler(async remoteMessage => {

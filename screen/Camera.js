@@ -48,8 +48,6 @@ export default class Camera extends PureComponent {
     if (this.camera) {
       const options = { quality: 0.5, base64: true };
       const data = await this.camera.takePictureAsync(options);
-      // console.log(data.uri);
-      console.log("takePicture", this.props.route.params.name)
       callback(this.props.route.params.name, data.uri)
       this.props.navigation.navigate('Mais');
     }

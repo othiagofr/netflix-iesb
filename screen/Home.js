@@ -37,20 +37,44 @@ const Home = () => {
 
   const [movies, setMovies] = useState([]);
   const [nationalMovies, setNationalMovies] = useState([]);
+  const [position, setPosition] = useState(null)
+
+  useEffect(() => {
+    const obtainLocation = async () => {
+      try {
+
+        const result = await getLocation();
+        setPosition(result)
+
+      } catch (error) {
+        console.log("obtainLocation Error", error);
+      }
+    }
+
+    obtainLocation();
+
+  }, []);
+
   useEffect(() => {
     const loadingMovies = async () => {
 
       const moviesJson = require('../assets/Movies.json');
-      const position = await getLocation();
+      const nationalCountries = []
 
-      const nationalCountries = await filterByCountry(moviesJson, position);
-      setNationalMovies(nationalCountries);
+      try {
+        if (position !== null) {
+          nationalCountries.push(...await filterByCountry(moviesJson, position));
+          setNationalMovies(nationalCountries);
+        }
+      } catch (error) {
+        console.log("FilterByCountry error", error)
+      }
 
       const nationalCountriesTitles = nationalCountries.map(
         (item) => item.Title
       );
 
-      moviesWithoutNationals = moviesJson.filter((item) =>
+      const moviesWithoutNationals = moviesJson.filter((item) =>
         !nationalCountriesTitles.includes(item.Title)
       )
 
@@ -58,7 +82,13 @@ const Home = () => {
     };
     loadingMovies()
   },
-    [])
+    [position]);
+
+  const getResumeMovies = (user) => {
+    const moviesJson = require('../assets/moviesToResume.json')
+
+    return moviesJson[user]
+  }
 
   return (
     <AppContext.Consumer>
@@ -84,8 +114,10 @@ const Home = () => {
               </Gradient>
             </Poster>
             <Movies label="Recomendados" data={movies} />
-            <Movies label="National" data={nationalMovies} />
-            <Movies label={`Continuar assistindo como ${user}`} data={nationalMovies} />
+            {
+              nationalMovies && nationalMovies.length > 0 && <Movies label="National" data={nationalMovies} />
+            }
+            <Movies label={`Continuar assistindo como ${user}`} data={getResumeMovies(user)} />
           </Container>
         </>)
       }
