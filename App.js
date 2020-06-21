@@ -43,6 +43,8 @@ export default function App() {
 
   const [profilesAvailables, setProfilesAvailables] = useState(PROFILES_AVAILABlES)
 
+  const [user, setUser] = useState(null)
+
   const editProfileIcon = (nameProfile, uri) => {
 
     const newProfiles = profilesAvailables.map(p => {
@@ -60,6 +62,11 @@ export default function App() {
 
     setProfilesAvailables(newProfiles)
 
+  }
+  
+  const changeProfile = (newProfile) => {
+    setUser(newProfile)
+    console.log("changeProfile", newProfile)
   }
 
   messaging().setBackgroundMessageHandler(async remoteMessage => {
@@ -81,6 +88,8 @@ export default function App() {
   return (
     <AppContext.Provider
       value={{
+        user: 'José',
+        changeProfile: changeProfile,
         profilesAvailables,
         editProfileIcon: editProfileIcon
       }}

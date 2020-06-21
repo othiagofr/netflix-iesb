@@ -98,8 +98,8 @@ const More = (props) => {
 
   return (
     <AppContext.Consumer>
-      {({ profilesAvailables }) => {
-  
+      {({ profilesAvailables, changeProfile }) => {
+
         replaceAvatarsWithImage(props, profilesAvailables);
 
         return (<Screen>
@@ -107,7 +107,7 @@ const More = (props) => {
             <Row horizontal>
               {profilesAvailables.map((item) => {
 
-                if(item.name === 'Maria') {
+                if (item.name === 'Maria') {
                   console.log("Maria", item)
                 }
 
@@ -117,7 +117,10 @@ const More = (props) => {
                     image={item.icon}
                     uri={item.uri}
                     name={item.name}
-                    onPress={(item) => selectProfile(props.navigation, item)}
+                    onPress={() => {
+                      changeProfile(item.name)
+                      selectProfile(props.navigation, item)
+                    }}
                   />
                 );
               })}
