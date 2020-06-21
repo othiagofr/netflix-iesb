@@ -7,7 +7,7 @@ import Camera from './screen/Camera';
 import ChooseIcon from './screen/ChooseIcon';
 import ProfileToEdit from './screen/ProfileToEdit';
 import AppContext from './AppContext'
-import messaging, { firebase } from '@react-native-firebase/messaging';
+import messaging from '@react-native-firebase/messaging';
 
 const Stack = createStackNavigator();
 
